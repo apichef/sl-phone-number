@@ -17,7 +17,11 @@ class PhoneNumber
         '033' => ['province' => 'Western', 'district' => 'Gampaha', 'area' => 'Gampaha'],
         '034' => ['province' => 'Western', 'district' => 'Kalutara', 'area' => 'Kalutara'],
         '035' => ['province' => 'Sabaragamuwa', 'district' => 'Kegalle', 'area' => 'Kegalle'],
-        '036' => ['province' => 'Western,Sabaragamuwa', 'district' => 'Colombo,Rathnapura,Kegalle', 'area' => 'Avissawella'],
+        '036' => [
+            'province' => 'Western,Sabaragamuwa',
+            'district' => 'Colombo,Rathnapura,Kegalle',
+            'area' => 'Avissawella'
+        ],
         '037' => ['province' => 'North Western', 'district' => 'Kurunegala', 'area' => 'Kurunegala'],
         '038' => ['province' => 'Western', 'district' => 'Kalutara', 'area' => 'Panadura'],
         '041' => ['province' => 'Southern', 'district' => 'Matara', 'area' => 'Matara'],
@@ -37,24 +41,24 @@ class PhoneNumber
     ];
 
     private $operatorCodes = [
-        '0'	=> ['name' => 'Lanka Bell', 'type' => 'Fixed LTE'],
-        '2'	=> ['name' => 'Sri Lanka Telecom', 'type' => 'Fixed Fibre or Copper'],
-        '3'	=> ['name' => 'Sri Lanka Telecom', 'type' => 'Fixed CDMA or LTE'],
-        '4'	=> ['name' => 'Dialog', 'type' => 'Fixed LTE'],
-        '5'	=> ['name' => 'Lanka Bell', 'type' => 'Fixed CDMA'],
-        '7'	=> ['name' => 'Dialog', 'type' => 'Fixed LTE'],
-        '9'	=> ['name' => 'Tritel', 'type' => 'Public Payphones'],
+        '0' => ['name' => 'Lanka Bell', 'type' => 'Fixed LTE'],
+        '2' => ['name' => 'Sri Lanka Telecom', 'type' => 'Fixed Fibre or Copper'],
+        '3' => ['name' => 'Sri Lanka Telecom', 'type' => 'Fixed CDMA or LTE'],
+        '4' => ['name' => 'Dialog', 'type' => 'Fixed LTE'],
+        '5' => ['name' => 'Lanka Bell', 'type' => 'Fixed CDMA'],
+        '7' => ['name' => 'Dialog', 'type' => 'Fixed LTE'],
+        '9' => ['name' => 'Tritel', 'type' => 'Public Payphones'],
     ];
 
     private $mobileOperatorCodes = [
-        '070'	=> ['name' => 'Mobitel'],
-        '071'	=> ['name' => 'Mobitel'],
-        '072'	=> ['name' => 'Hutch'],
-        '074'	=> ['name' => 'Dialog'],
-        '075'	=> ['name' => 'Airtel'],
-        '076'	=> ['name' => 'Dialog'],
-        '077'	=> ['name' => 'Dialog'],
-        '078'	=> ['name' => 'Hutch'],
+        '070' => ['name' => 'Mobitel'],
+        '071' => ['name' => 'Mobitel'],
+        '072' => ['name' => 'Hutch'],
+        '074' => ['name' => 'Dialog'],
+        '075' => ['name' => 'Airtel'],
+        '076' => ['name' => 'Dialog'],
+        '077' => ['name' => 'Dialog'],
+        '078' => ['name' => 'Hutch'],
     ];
 
     /** @var string */

@@ -35,8 +35,12 @@
     },
     "scripts": {
         "test": "phpunit",
-        "check-style": "phpcs src tests",
-        "fix-style": "phpcbf src tests"
+        "cs": "composer run check-style && composer run check-style-test",
+        "csf": "composer run fix-style && composer run fix-style-test",
+        "check-style": "phpcs src",
+        "check-style-test": "phpcs tests --exclude=PSR1.Methods.CamelCapsMethodName,Generic.Files.LineLength",
+        "fix-style": "phpcbf src",
+        "fix-style-test": "phpcbf tests --exclude=PSR1.Methods.CamelCapsMethodName,Generic.Files.LineLength"
     },
     "extra": {
         "branch-alias": {
