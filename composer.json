@@ -1,0 +1,49 @@
+{
+    "name": "apichef/sl-phone-number",
+    "type": "library",
+    "description": "Simple package to validate Sri Lankan phone numbers.",
+    "keywords": [
+        "apichef",
+        "sl-phone-number"
+    ],
+    "homepage": "https://github.com/apichef/sl-phone-number",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Milroy .E Fraser",
+            "email": "milroy@outlook.com",
+            "homepage": "https://milroy.me",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "~7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : ">=8.0",
+        "squizlabs/php_codesniffer": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "APiChef\\SlPhoneNumber\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "APiChef\\SlPhoneNumber\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs src tests",
+        "fix-style": "phpcbf src tests"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
