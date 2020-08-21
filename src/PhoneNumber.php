@@ -4,6 +4,9 @@ namespace APiChef\SlPhoneNumber;
 
 class PhoneNumber
 {
+    const TYPE_MOBILE = 'mobile';
+    const TYPE_FIXED = 'fixed';
+
     private $areaCodes = [
         '011' => ['province' => 'Western', 'district' => 'Colombo', 'area' => 'Colombo'],
         '021' => ['province' => 'Northern', 'district' => 'Jaffna', 'area' => 'Jaffna'],
@@ -73,10 +76,28 @@ class PhoneNumber
     {
         if ($this->isFormatValid()) {
             $number = $this->toLocalFormat();
-
-            return [
+            $data = [
                 'number' => $number,
             ];
+            $prefix  = substr($number, 0, 3);
+
+            if (array_key_exists($prefix, $this->mobileOperatorCodes)) {
+                $data['type'] = self::TYPE_MOBILE;
+                $data['operator'] = $this->mobileOperatorCodes[$prefix];
+
+                return $data;
+            }
+
+            if (array_key_exists($prefix, $this->areaCodes)) {
+                $operatorCode = substr($number, 3, 1);
+                if (array_key_exists($operatorCode, $this->operatorCodes)) {
+                    $data['type'] = self::TYPE_FIXED;
+                    $data['operator'] = $this->operatorCodes[$operatorCode];
+                    $data['location'] = $this->areaCodes[$prefix];
+
+                    return $data;
+                }
+            }
         }
 
         throw new \InvalidArgumentException('Invalid phone number.');
@@ -111,6 +132,7 @@ class PhoneNumber
         if (substr($this->number, 0, 4) === '0094') {
             $number = '0' . substr($this->number, 4);
         }
+
         return $number;
     }
 }
