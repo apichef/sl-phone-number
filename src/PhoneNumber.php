@@ -71,27 +71,15 @@ class PhoneNumber
 
     public function getData(): array
     {
-        if (
-            ! preg_match('/^0[0-9]{9}$/', $this->number) &&
-            ! preg_match('/^\+94[0-9]{9}$/', $this->number) &&
-            ! preg_match('/^0094[0-9]{9}$/', $this->number)
-        ) {
-            throw new \InvalidArgumentException('Invalid phone number.');
+        if ($this->isFormatValid()) {
+            $number = $this->toLocalFormat();
+
+            return [
+                'number' => $number,
+            ];
         }
 
-        $number = $this->number;
-
-        if (substr($this->number, 0, 3) === '+94') {
-            $number = '0'.substr($this->number, 3);
-        }
-
-        if (substr($this->number, 0, 4) === '0094') {
-            $number = '0'.substr($this->number, 4);
-        }
-
-        return [
-            'number' => $number,
-        ];
+        throw new \InvalidArgumentException('Invalid phone number.');
     }
 
     public function isValid(): bool
@@ -103,5 +91,26 @@ class PhoneNumber
         } catch (\InvalidArgumentException $exception) {
             return false;
         }
+    }
+
+    private function isFormatValid(): bool
+    {
+        return preg_match('/^0[0-9]{9}$/', $this->number) ||
+            preg_match('/^\+94[0-9]{9}$/', $this->number) ||
+            preg_match('/^0094[0-9]{9}$/', $this->number);
+    }
+
+    private function toLocalFormat(): string
+    {
+        $number = $this->number;
+
+        if (substr($this->number, 0, 3) === '+94') {
+            $number = '0' . substr($this->number, 3);
+        }
+
+        if (substr($this->number, 0, 4) === '0094') {
+            $number = '0' . substr($this->number, 4);
+        }
+        return $number;
     }
 }
