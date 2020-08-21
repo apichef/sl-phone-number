@@ -72,30 +72,25 @@ class PhoneNumber
         $this->number = $number;
     }
 
-    public function getData(): array
+    public function getDetails(): PhoneNumberDetails
     {
         if ($this->isFormatValid()) {
             $number = $this->toLocalFormat();
-            $data = [
-                'number' => $number,
-            ];
             $prefix  = substr($number, 0, 3);
 
             if (array_key_exists($prefix, $this->mobileOperatorCodes)) {
-                $data['type'] = self::TYPE_MOBILE;
-                $data['operator'] = $this->mobileOperatorCodes[$prefix];
-
-                return $data;
+                return new PhoneNumberDetails($number, self::TYPE_MOBILE, $this->mobileOperatorCodes[$prefix]['name']);
             }
 
             if (array_key_exists($prefix, $this->areaCodes)) {
                 $operatorCode = substr($number, 3, 1);
                 if (array_key_exists($operatorCode, $this->operatorCodes)) {
-                    $data['type'] = self::TYPE_FIXED;
-                    $data['operator'] = $this->operatorCodes[$operatorCode];
-                    $data['location'] = $this->areaCodes[$prefix];
-
-                    return $data;
+                    return new PhoneNumberDetails(
+                        $number,
+                        self::TYPE_FIXED,
+                        $this->operatorCodes[$operatorCode]['name'],
+                        $this->areaCodes[$prefix]
+                    );
                 }
             }
         }
@@ -106,7 +101,7 @@ class PhoneNumber
     public function isValid(): bool
     {
         try {
-            $this->getData();
+            $this->getDetails();
 
             return true;
         } catch (\InvalidArgumentException $exception) {

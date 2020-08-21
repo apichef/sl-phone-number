@@ -19,9 +19,10 @@ class PhoneNumberTest extends TestCase
             $this->expectException(\InvalidArgumentException::class);
         }
 
-        $result = $slPhoneNumber->getData();
+        /** @var PhoneNumberDetails $result */
+        $result = $slPhoneNumber->getDetails();
 
-        $this->assertEquals($formated, $result['number']);
+        $this->assertEquals($formated, $result->getNumber());
     }
 
     /**
@@ -55,5 +56,42 @@ class PhoneNumberTest extends TestCase
             ['009400000000', false, null], // 0094 and 8 digits
             ['00940000000000', false, null], // 0094 and 10 digits
         ];
+    }
+
+    public function test_get_details_returns_phone_number_details_object()
+    {
+        $details = (new PhoneNumber('0710000000'))->getDetails();
+
+        $this->assertInstanceOf(PhoneNumberDetails::class, $details);
+        $this->assertEquals('Mobitel', $details->getOperator());
+
+        $fixedDetails = (new PhoneNumber('0112000000'))->getDetails();
+
+        $this->assertInstanceOf(PhoneNumberDetails::class, $fixedDetails);
+        $this->assertEquals('Sri Lanka Telecom', $fixedDetails->getOperator());
+        $this->assertEquals('Western', $fixedDetails->getProvince());
+        $this->assertEquals('Colombo', $fixedDetails->getDistrict());
+        $this->assertEquals('Colombo', $fixedDetails->getArea());
+    }
+
+    public function test_it_throws_a_logic_exception_when_trying_to_get_province_from_mobile_number()
+    {
+        $details = (new PhoneNumber('0710000000'))->getDetails();
+        $this->expectException(\LogicException::class);
+        $details->getProvince();
+    }
+
+    public function test_it_throws_a_logic_exception_when_trying_to_get_district_from_mobile_number()
+    {
+        $details = (new PhoneNumber('0710000000'))->getDetails();
+        $this->expectException(\LogicException::class);
+        $details->getDistrict();
+    }
+
+    public function test_it_throws_a_logic_exception_when_trying_to_get_area_from_mobile_number()
+    {
+        $details = (new PhoneNumber('0710000000'))->getDetails();
+        $this->expectException(\LogicException::class);
+        $details->getArea();
     }
 }
