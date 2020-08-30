@@ -94,4 +94,31 @@ class PhoneNumberTest extends TestCase
         $this->expectException(\LogicException::class);
         $details->getArea();
     }
+
+    /**
+     * @dataProvider validityPhoneNumbers
+     */
+    public function test_can_get_local_format(string $number)
+    {
+        $localFormat = (new PhoneNumber($number))->toLocalFormat();
+        $this->assertEquals('0710000000', $localFormat);
+    }
+
+    /**
+     * @dataProvider validityPhoneNumbers
+     */
+    public function test_can_get_IDD_format(string $number)
+    {
+        $localFormat = (new PhoneNumber($number))->toIDDFormat();
+        $this->assertEquals('+94710000000', $localFormat);
+    }
+
+    public function validityPhoneNumbers(): array
+    {
+        return [
+            ['0710000000'],
+            ['+94710000000'],
+            ['0094710000000'],
+        ];
+    }
 }
