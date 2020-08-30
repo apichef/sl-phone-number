@@ -116,7 +116,7 @@ class PhoneNumber
             preg_match('/^0094[0-9]{9}$/', $this->number);
     }
 
-    private function toLocalFormat(): string
+    public function toLocalFormat(): string
     {
         $number = $this->number;
 
@@ -129,5 +129,10 @@ class PhoneNumber
         }
 
         return $number;
+    }
+
+    public function toIDDFormat(): string
+    {
+        return '+94' . substr($this->toLocalFormat(), 1);
     }
 }
