@@ -112,7 +112,7 @@ class PhoneNumber
     private function isFormatValid(): bool
     {
         return preg_match('/^0[0-9]{9}$/', $this->number) ||
-            preg_match('/^\+94[0-9]{9}$/', $this->number) ||
+            // preg_match('/^\+94[0-9]{9}$/', $this->number) ||
             preg_match('/^0094[0-9]{9}$/', $this->number);
     }
 
